@@ -33,7 +33,7 @@ const Nav = () => {
       {/* Desktop menu */}
       <ol className="hidden lg:flex gap-6 text-[#1D212A] text-[12px]">
         <li>
-          <NavLink to="/generate" activeclassname="active">
+          <NavLink to="/documents" activeclassname="active">
             Generate
           </NavLink>
         </li>
@@ -91,14 +91,14 @@ const Nav = () => {
             </button>
           </div>
           <nav className="flex flex-col space-y-6">
-            {/* <NavLink
-              to="/generate"
+            <NavLink
+              to="/documents"
               className="flex justify-start items-center gap-2"
               activeclassname="text-[#8770FF]"
             >
               Generate{" "}
               <img src={shortDownArrowIcon} width={20} alt="down arrow" />
-            </NavLink> */}
+            </NavLink>
 
             {/* <NavLink to="/contact" activeclassname="text-[#8770FF]">
               Contact us

@@ -74,7 +74,7 @@ const BenefitsCard = ({ imageURL, desc }) => {
 const Competitors = () => {
   return (
     <section className="max-w-[1000px] mx-auto">
-      <div className="w-[400px] lg:w-[550px] h-[550px] bg-[rgba(182,191,217,0.1)] rounded-full mb-[300px] lg:mb-[100px] relative flex flex-col gap-10 pt-20">
+      <div className="w-[400px] md:w-[500px] lg:w-[550px] h-[550px] bg-[rgba(182,191,217,0.1)] rounded-full mb-[300px] lg:mb-[100px] relative flex flex-col gap-10 pt-20">
         {/* top contents of the circle */}
         <div className="flex flex-col items-center text-center">
           <PreHeading>VALIDATE OUR CREDIBILITY</PreHeading>
@@ -110,7 +110,7 @@ const Competitors = () => {
         </div>
 
         {/* bottom white container */}
-        <div className="w-[250px] lg:max-w-[550px] lg:w-full h-[310px] lg:h-[180px] rounded-md bg-white shadow-lg grid grid-cols-2 lg:grid-cols-4 py-6 px-6 gap-6 bottom-[-200px] lg:bottom-[-35px] absolute left-[70px] lg:left-[0px]">
+        <div className="w-[250px] md:w-[300px] lg:max-w-[550px] lg:w-full h-[310px] lg:h-[180px] rounded-md bg-white shadow-lg grid grid-cols-2 lg:grid-cols-4 py-6 px-6 gap-6 bottom-[-200px] lg:bottom-[-35px] absolute left-[70px] md:left-[90px] lg:left-[0px]">
           {benefits.map((benefit) => {
             return (
               <BenefitsCard

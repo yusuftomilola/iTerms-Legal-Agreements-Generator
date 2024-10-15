@@ -35,7 +35,7 @@ const Blog = () => {
 
   return (
     <section className=" max-w-[1000px] mx-auto w-full flex flex-col gap-6 mb-[50px] lg:mb-[100px]">
-      <div className="flex flex-col text-center items-start lg:items-center pl-6 lg:pl-0 justify-center gap-2 ">
+      <div className="flex flex-col text-center items-start sm:items-center pl-6 lg:pl-0 justify-center gap-2 ">
         <PreHeading>KEEP UP WITH THE LATEST</PreHeading>
 
         <div className="hidden lg:block">

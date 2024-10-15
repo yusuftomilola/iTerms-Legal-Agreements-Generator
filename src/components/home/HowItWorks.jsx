@@ -14,8 +14,8 @@ const steps = [
 const HowItWorks = () => {
   return (
     <section className="w-full max-w-[900px] flex flex-col pt-2 mb-[100px] mt-[-50px]">
-      <div className="flex items-end justify-end flex-col -mb-[80px]">
-        <div className=" -mb-16 pr-12 flex flex-col items-center lg:items-start text-center lg:text-left max-w-[330px] lg:max-w-[330px] ">
+      <div className="flex items-center lg:items-end justify-end flex-col -mb-[80px]">
+        <div className="-mb-16 pr-12 flex flex-col items-center lg:items-start text-center lg:text-left max-w-[330px] lg:max-w-[330px]  pl-[50px]">
           <PreHeading>EASY & COST-EFFECTIVE</PreHeading>
 
           <H2 textSize={"30"}>How it works?</H2>
@@ -31,7 +31,7 @@ const HowItWorks = () => {
         <div className="flex items-center lg:w-[800px]">
           <div className="hidden lg:flex h-[1px] w-[300px] bg-[#8770ff] -mr-10" />
 
-          <div className="mt-[80px] lg:mt-[0px] -mr-10">
+          <div className="mt-[80px] lg:mt-[0px] -mr-10 ">
             <img
               src={videoIcon}
               alt="video thumbnail icon"
@@ -46,7 +46,7 @@ const HowItWorks = () => {
           <ProgressBar />
         </div>
 
-        <div className="flex flex-row justify-center items-center overflow-x-auto lg:hidden mb-[-60px]">
+        <div className="flex flex-row justify-center items-center overflow-x-auto lg:hidden mb-[-60px] mt-[80px]">
           {steps.map((step, index) => (
             <React.Fragment key={step.number}>
               <div className="flex flex-col items-center">

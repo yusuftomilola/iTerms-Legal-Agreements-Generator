@@ -42,7 +42,7 @@ const Discover = () => {
   ];
 
   return (
-    <section className="pr-6 w-full max-w-[1100px] flex lg:justify-between lg:items-start pt-10 mb-[100px] flex-col lg:flex-row items-center mt-8 lg:mt-0">
+    <section className="pr-6 w-full max-w-[1100px] flex lg:justify-between lg:items-start pt-10 mb-[100px] flex-col sm:flex-row items-center mt-8 lg:mt-0">
       <div className="w-full lg:w-[50%]">
         <img
           src={streamlineYourAIImage}

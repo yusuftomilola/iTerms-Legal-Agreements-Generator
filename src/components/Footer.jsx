@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className="bg-[#8770ff] max-w-[1200px] m-auto h-[500px] relative flex items-end ">
       <div
         className="bg-white rounded-md shadow-xl lg:max-w-[700px] lg:w-full h-[260px] absolute 
-        -top-[50px] left-[6%] lg:left-[20%] z-20 lg:flex flex-col items-center gap-2 justify-center text-center hidden"
+        -top-[50px] left-[50%] transform -translate-x-1/2 z-20 lg:flex flex-col items-center gap-2 justify-center text-center hidden"
       >
         <PreHeading>GET STARTED WITHIN MINUTES</PreHeading>
 
@@ -32,9 +32,10 @@ const Footer = () => {
         />
       </div>
 
+      {/* Responsive ProtectYourBusiness Container */}
       <div
-        className="bg-white rounded-md shadow-xl w-[320px] h-[220px] absolute 
-        -top-[110px] left-[6%] lg:left-[20%] z-20 flex flex-col items-center gap-2 justify-center text-center lg:hidden"
+        className="bg-white rounded-md shadow-xl w-[80%] max-w-[700px] min-w-[280px] h-[220px] absolute 
+        -top-[110px] left-[50%] transform -translate-x-1/2 z-20 flex flex-col items-center gap-2 justify-center text-center lg:hidden protectYourBusiness"
       >
         <PreHeading>GET STARTED WITHIN MINUTES</PreHeading>
 
@@ -57,7 +58,7 @@ const Footer = () => {
         />
       </div>
 
-      <div className="text-[#e0e0e0] max-w-[720px] w-full   mx-auto flex flex-col gap-4 pt-[200px]">
+      <div className="text-[#e0e0e0] max-w-[720px] w-full mx-auto flex flex-col gap-4 pt-[200px]">
         {/* top */}
         <div className="justify-between mb-8 grid grid-cols-2 lg:grid-cols-4 px-6 gap-4">
           <div className="hidden lg:block">

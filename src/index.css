@@ -42,17 +42,30 @@
 }
 
 .herorightdashboardImage {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   background-image: url("../src/assets/icons/herorightdashboardImage.svg");
   background-repeat: no-repeat;
+  background-position: center; /* Ensure image is centered */
   background-size: contain;
   width: 100%;
   height: 450px;
+}
+
+@media screen and (min-width: 200px) {
+  .herorightdashboardImage {
+    height: 450px;
+    margin-bottom: 100px;
+    margin-top: -80px;
+  }
 }
 
 @media screen and (min-width: 400px) {
   .herorightdashboardImage {
     height: 350px;
     margin-bottom: 200px;
+    margin-top: 0px;
   }
 }
 
@@ -77,4 +90,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 500px;
+}
+
+.active2 {
+  background-color: #8770ff1a;
+  border-left: #8770ff 2px solid;
+  color: #8770ff;
 }

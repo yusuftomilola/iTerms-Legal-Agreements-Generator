@@ -54,8 +54,16 @@ import checkGreenIcon from "./checkGreenIcon.svg";
 import checkPurpleIcon from "./checkPurpleIcon.svg";
 import greenCircleIcon from "./greenCircleIcon.svg";
 import shortDownArrowIcon from "./shortDownArrowIcon.svg";
+import genDocumentsIcon from "./genDocumentsIcon.svg";
+import genSettingsIcon from "./genSettingsIcon.svg";
+import genSubscriptionIcon from "./genSubsciptionIcon.svg";
+import userImage from "./userImage.svg";
 
 export {
+  userImage,
+  genDocumentsIcon,
+  genSettingsIcon,
+  genSubscriptionIcon,
   shortDownArrowIcon,
   greenCircleIcon,
   creditCardIcon,

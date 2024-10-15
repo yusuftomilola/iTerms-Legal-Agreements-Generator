@@ -14,6 +14,9 @@ import PrivateRoutes from "./components/PrivateRoutes";
 // import Sample from "./pages/Sample";
 import Layout from "./layout/Layout";
 import EachBlogPage from "./pages/EachBlogPage";
+import SignedInLayout from "./layout/SignedInLayout";
+import Settings from "./pages/Settings";
+import Subscriptions from "./pages/Subscriptions";
 
 const router = createBrowserRouter([
   {
@@ -28,10 +31,27 @@ const router = createBrowserRouter([
     path: "/forgot-password",
     element: <ForgotPassword />,
   },
-  // {
-  //   path: "/sample",
-  //   element: <Sample />,
-  // },
+  {
+    element: (
+      <SignedInLayout>
+        <Outlet />
+      </SignedInLayout>
+    ),
+    children: [
+      {
+        path: "/documents",
+        element: <Generate />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
+      },
+      {
+        path: "/subscriptions",
+        element: <Subscriptions />,
+      },
+    ],
+  },
 
   {
     element: <PrivateRoutes />,
@@ -48,10 +68,10 @@ const router = createBrowserRouter([
             index: true,
             element: <Home />,
           },
-          {
-            path: "/generate",
-            element: <Generate />,
-          },
+          // {
+          //   path: "/generate",
+          //   element: <Generate />,
+          // },
           {
             path: "/contact",
             element: <Contact />,
