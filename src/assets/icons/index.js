@@ -26,7 +26,7 @@ import compAmountIcon from "./compAmountIcon.svg";
 import compCompatibleIcon from "./compCompatibleIcon.svg";
 import compEmbedIcon from "./compEmbedIcon.svg";
 import compGDPRIcon from "./compGDPRIcon.svg";
-import compGetTermsIcon from "./compGeTtermsIcon.svg";
+import compGetTermsIcon from "./compGetTermsIcon.svg";
 import compHostedIcon from "./compHostedIcon.svg";
 import compPaymentIcon from "./compPaymentIcon.svg";
 import compHTMLIcon from "./compHTMLIcon.svg";
