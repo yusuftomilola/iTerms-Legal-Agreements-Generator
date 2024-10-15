@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { googleIcon, facebookIcon } from "../assets/icons";
 
-export default function Signup() {
+const Signup = () => {
   const navigateTo = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
@@ -273,4 +273,6 @@ export default function Signup() {
       </div>
     </>
   );
-}
+};
+
+export default Signup;

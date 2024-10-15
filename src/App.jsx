@@ -2,7 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SignUp from "./pages/SignUp";
+import Signup from "./pages/Signup";
 import SignIn from "./pages/Signin";
 import ForgotPassword from "./pages/ForgotPassword";
 import Generate from "./pages/Generate";
@@ -11,14 +11,14 @@ import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import Home from "./pages/home";
 import PrivateRoutes from "./components/PrivateRoutes";
-import Sample from "./pages/Sample";
+// import Sample from "./pages/Sample";
 import Layout from "./layout/Layout";
 import EachBlogPage from "./pages/EachBlogPage";
 
 const router = createBrowserRouter([
   {
     path: "/sign-up",
-    element: <SignUp />,
+    element: <Signup />,
   },
   {
     path: "/sign-in",
@@ -28,10 +28,10 @@ const router = createBrowserRouter([
     path: "/forgot-password",
     element: <ForgotPassword />,
   },
-  {
-    path: "/sample",
-    element: <Sample />,
-  },
+  // {
+  //   path: "/sample",
+  //   element: <Sample />,
+  // },
 
   {
     element: <PrivateRoutes />,
