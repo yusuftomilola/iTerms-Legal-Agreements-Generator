@@ -91,14 +91,14 @@ const Nav = () => {
             </button>
           </div>
           <nav className="flex flex-col space-y-6">
-            <NavLink
+            {/* <NavLink
               to="/generate"
               className="flex justify-start items-center gap-2"
               activeclassname="text-[#8770FF]"
             >
               Generate{" "}
               <img src={shortDownArrowIcon} width={20} alt="down arrow" />
-            </NavLink>
+            </NavLink> */}
 
             {/* <NavLink to="/contact" activeclassname="text-[#8770FF]">
               Contact us
@@ -110,10 +110,10 @@ const Nav = () => {
               Blog
             </NavLink>
 
-            <div className="flex justify-start items-center gap-2 mb-4">
+            {/* <div className="flex justify-start items-center gap-2 mb-4">
               <span>Account</span>
               <img src={shortDownArrowIcon} width={20} alt="down arrow" />
-            </div>
+            </div> */}
           </nav>
 
           <div className="mt-auto">
@@ -121,10 +121,21 @@ const Nav = () => {
               <span>Account</span>
               <img src={shortDownArrowIcon} width={20} alt="down arrow" />
             </div> */}
+
             <div className="flex justify-start items-center gap-2">
               <span>En</span>
               <img src={shortDownArrowIcon} width={20} alt="down arrow" />
             </div>
+
+            {auth.currentUser && (
+              <div className="flex items-center gap-2">
+                <ButtonWithBg
+                  text="Log out"
+                  bgColor="#8770FF"
+                  onClick={logOut}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}
