@@ -9,7 +9,7 @@ import Generate from "./pages/Generate";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import PrivateRoutes from "./components/PrivateRoutes";
 // import Sample from "./pages/Sample";
 import Layout from "./layout/Layout";
