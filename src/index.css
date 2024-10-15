@@ -49,6 +49,13 @@
   height: 450px;
 }
 
+@media screen and (min-width: 400px) {
+  .herorightdashboardImage {
+    height: 350px;
+    margin-bottom: 200px;
+  }
+}
+
 .heroLineVioletIcon {
   background-image: url("../src/assets/icons/heroLineVioletIcon.svg");
   position: absolute;

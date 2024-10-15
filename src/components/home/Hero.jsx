@@ -29,7 +29,7 @@ const Hero = () => {
             fastest way to <br /> Legal Agreements
           </h1>
 
-          <div className="absolute top-[35px] left-[33px] w-[260px] lg:hidden">
+          <div className="absolute top-[35px] left-[33px] w-[260px] sm:hidden">
             <img src={greenCircleIcon} alt="green icon" />
           </div>
         </div>
@@ -38,7 +38,7 @@ const Hero = () => {
           Generate your{" "}
           <span className="font-semibold">Privacy Policy, Terms of Use</span>{" "}
           <br /> or <span className="font-semibold">Cookie Policy</span> for{" "}
-          <span className="text-green-500 font-semibold">free</span>
+          <span className="text-green-500 font-semibold ">free</span>
         </p>
 
         <div className="flex gap-4 items-center mt-3 lg:mt-2 justify-center lg:justify-normal">
@@ -82,11 +82,11 @@ const Hero = () => {
       <div className="w-full relative">
         <div className="herorightdashboardImage" />
 
-        <div className="absolute left-[0px] md:left-[-40px] top-[30%] md:top-[40%] z-10 w-[100px] md:w-[150px]">
+        <div className="absolute left-[0px] md:left-[-40px] top-[30%] md:top-[40%] z-10 w-[100px] md:w-[150px] sm:hidden lg:flex">
           <img src={heroVerificationIcon} alt="verification icon" />
         </div>
 
-        <div className="absolute left-[42%] md:left-[42%] top-[25%] md:top-[35%] z-10 w-[30px] md:w-[50px]">
+        <div className="absolute left-[42%] md:left-[42%] top-[25%] md:top-[35%] z-10 w-[30px] md:w-[50px] sm:hidden lg:block">
           <img src={heroPurpleArrow} alt="verification icon" />
         </div>
       </div>
