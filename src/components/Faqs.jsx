@@ -5,7 +5,7 @@ import H3 from "../components/H3";
 import P from "../components/P";
 
 const TableOfContents = () => (
-  <div className="w-1/4 pr-8">
+  <div className="w-full pr-8">
     <H3 textSize={13} fontWeight={400}>
       Table of Contents
     </H3>

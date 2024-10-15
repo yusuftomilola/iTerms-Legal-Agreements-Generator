@@ -10,7 +10,7 @@ import {
 const Legal = () => {
   return (
     <section className="legalBackground mt-[-130px] lg:mt-[-100px] mb-[100px]">
-      <div className="lg:w-[550px] max-w-[250px] mx-auto mt-[70px] text-center lg:text-left flex flex-col">
+      <div className="lg:max-w-[550px] max-w-[250px] mx-auto mt-[70px] text-center lg:text-left flex flex-col">
         <PreHeading isWhite={true}>TRUSTED PROVISIONS</PreHeading>
         <div className="hidden lg:block">
           <H2 textSize={"30"} isWhite={true}>
@@ -72,13 +72,13 @@ const Legal = () => {
             />
           </div>
 
-          <div className="absolute top-[180px] left-[0px]">
+          {/* <div className="absolute top-[180px] left-[0px]">
             <img
               src={legalPoliciesCreatedIcon}
               alt="legal complaint icon"
               width={90}
             />
-          </div>
+          </div> */}
 
           {/* <div className="h-[1px] text-white w-[300px] absolute bottom-[10px]" /> */}
         </div>

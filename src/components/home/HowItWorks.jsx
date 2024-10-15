@@ -27,7 +27,7 @@ const HowItWorks = () => {
         </div>
       </div>
 
-      <div className="flex items-center mt-[100px] flex-col-reverse">
+      <div className="flex items-center mt-[100px] flex-col-reverse lg:flex-row">
         <div className="flex items-center">
           <div className="hidden lg:block h-[1px] w-[500px] bg-[#8770ff] -mr-10" />
 

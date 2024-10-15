@@ -42,7 +42,7 @@ const Discover = () => {
   ];
 
   return (
-    <section className="pr-6 w-full max-w-[1100px] flex lg:justify-between lg:items-start pt-10 mb-[100px] flex-col items-center mt-8 lg:mt-0">
+    <section className="pr-6 w-full max-w-[1100px] flex lg:justify-between lg:items-start pt-10 mb-[100px] flex-col lg:flex-row items-center mt-8 lg:mt-0">
       <div className="w-full lg:w-[50%]">
         <img
           src={streamlineYourAIImage}
@@ -55,7 +55,7 @@ const Discover = () => {
       <div className="relative flex flex-col gap-3 w-full lg:w-[50%] pl-6 ">
         {/* desktop */}
         <div className="hidden lg:block">
-          <Gradient textSize={"130"} top={"-80px"} left={"-70px"}>
+          <Gradient textSize={"130"} top={"-80px"} left={"-60px"}>
             AI
           </Gradient>
         </div>

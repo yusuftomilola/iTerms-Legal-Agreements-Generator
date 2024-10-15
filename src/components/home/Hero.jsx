@@ -14,8 +14,8 @@ import {
 const Hero = () => {
   return (
     <section className="px-6 w-full max-w-[800px] mx-auto flex justify-between items-start pt-10 flex-col-reverse md:flex-row">
-      <div className="flex flex-col gap-3 w-full pt-0 lg:pt-6 relative -mt-[180px]">
-        <p className="text-[10px] text-[#B6BFD9] text-center hidden lg:block">
+      <div className="flex flex-col gap-3 w-full pt-0 lg:pt-6 relative -mt-[180px] lg:-mt-[0px]">
+        <p className="text-[10px] text-[#B6BFD9] hidden lg:block">
           POWERED BY AI
         </p>
 
@@ -29,7 +29,7 @@ const Hero = () => {
             fastest way to <br /> Legal Agreements
           </h1>
 
-          <div className="absolute top-[35px] left-[33px] w-[260px]">
+          <div className="absolute top-[35px] left-[33px] w-[260px] lg:hidden">
             <img src={greenCircleIcon} alt="green icon" />
           </div>
         </div>
