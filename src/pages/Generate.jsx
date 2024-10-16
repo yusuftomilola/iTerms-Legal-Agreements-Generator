@@ -25,6 +25,7 @@ const DocumentRow = ({ document, isActive, onToggle }) => (
             }`}
           ></div>
         </div>
+
         <a
           href={document.url}
           className="text-[#8770ff] hover:underline truncate"
@@ -116,6 +117,7 @@ const DocumentManagement = () => {
           <ButtonWithBg text={"Create"} bgColor={"#8770ff"} />
         </div>
       </div>
+
       <div className="overflow-x-auto">
         <div className="min-w-max">
           <div className="flex text-left text-gray-400 border-b mb-4 text-[13px] pb-2">

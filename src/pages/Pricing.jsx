@@ -284,38 +284,35 @@ const Pricing = () => {
             </div>
 
             {/* lg+ */}
-            <div className="isolate mt-20 hidden lg:block ">
+            <div className="isolate mt-20 hidden lg:block">
               <div className="relative -mx-8">
                 {tiers.some((tier) => tier.mostPopular) ? (
-                  <div className="absolute inset-x-4 inset-y-0 -z-10 flex ">
-                    {/* MOST POPULAR */}
+                  <div className="absolute inset-x-4 inset-y-0 -z-10 flex">
                     <div
                       style={{
                         marginLeft: `${
-                          (tiers.findIndex((tier) => tier.mostPopular) + 1) * 25
+                          (tiers.findIndex((tier) => tier.mostPopular) + 1) *
+                          33.33
                         }%`,
                       }}
                       aria-hidden="true"
-                      className="flex w-1/4 px-4  relative shadow-2xl"
+                      className="flex w-1/3 px-4 relative shadow-2xl"
                     >
-                      <div className="w-full rounded-t-xl " />
-
-                      <div className="absolute w-full top-[-3.3%] left-0 bg-[rgba(50,217,136,0.1)] text-[#32D989] text-[11px] text-center rounded-t-md py-2.5 font-medium  shadow-2xl">
+                      <div className="w-full rounded-t-xl" />
+                      <div className="absolute w-full top-[-3.3%] left-0 bg-[rgba(50,217,136,0.1)] text-[#32D989] text-[11px] text-center rounded-t-md py-2.5 font-medium shadow-2xl">
                         MOST POPULAR
                       </div>
                     </div>
                   </div>
                 ) : null}
-                <table className="w-full table-fixed border-separate border-spacing-x-8 text-left ">
+                <table className="w-full table-fixed border-separate border-spacing-x-8 text-left">
                   <caption className="sr-only">Pricing plan comparison</caption>
                   <colgroup>
-                    <col className="w-1/4 " />
-                    <col className="w-1/4" />
-                    <col className="w-1/4" />
-                    {/* <col className="w-1/4 bg-purple-500" /> */}
+                    <col className="w-1/3" />
+                    <col className="w-1/3" />
+                    <col className="w-1/3" />
                   </colgroup>
-                  {/* TABLE HEAD */}
-                  <thead className="">
+                  <thead>
                     <tr className="relative">
                       <td>
                         <img
@@ -328,17 +325,18 @@ const Pricing = () => {
                         <th
                           key={tier.id}
                           scope="col"
-                          className=" pr-6 pt-6 xl:px-8 xl:pt-8 "
+                          className="pr-6 pt-6 xl:px-8 xl:pt-8 pl-4"
                         >
                           <div className="text-[7px] font-semibold leading-7 text-[#565A65] bg-[rgba(182,191,217,0.12)] rounded-sm w-[60px] text-center h-[15px] flex items-center justify-center">
                             {tier.name}
                           </div>
                           <p
-                            className={`${
+                            className={classNames(
                               tier.type === "Pro+"
                                 ? "text-[#3EDE91]"
-                                : "text-[#8770FF]"
-                            } text-[22px] font-light`}
+                                : "text-[#8770FF]",
+                              "text-[22px] font-light"
+                            )}
                           >
                             {tier.type}
                           </p>
@@ -346,16 +344,14 @@ const Pricing = () => {
                       ))}
                     </tr>
                   </thead>
-
-                  {/* TABLE BODY */}
-                  <tbody className="">
-                    <tr className="">
-                      <th scope="row" className="">
+                  <tbody>
+                    <tr>
+                      <th scope="row">
                         <span className="sr-only">Price</span>
                       </th>
                       {tiers.map((tier) => (
                         <td key={tier.id} className="pr-6 pt-2 xl:px-8">
-                          <div className="flex items-baseline gap-x-1 text-gray-900">
+                          <div className="flex items-baseline gap-x-1 text-gray-900 pl-4">
                             <span className="text-2xl font-light relative">
                               <span className="scriptBefore">
                                 {tier.subScriptBefore}
@@ -372,12 +368,12 @@ const Pricing = () => {
                             </span>
                           </div>
                           <a
-                            href={tier.href}
+                            href="#"
                             className={classNames(
                               tier.mostPopular
                                 ? "bg-[#8770FF] text-[#f0f0f0] hover:bg-indigo-500"
                                 : "text-[#8770FF] ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300",
-                              "mt-2 block rounded-md px-2 py-[3px] text-center text-[10px] leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8770FF] w-[100px]"
+                              "mt-2 block rounded-md px-2 py-[3px] text-center text-[10px] leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8770FF] ml-4 w-[100px]"
                             )}
                           >
                             {tier.cta}
@@ -398,12 +394,10 @@ const Pricing = () => {
                             )}
                           >
                             {section.name}
-                            {/* <div className="absolute inset-x-8 -mt-6 h-px bg-gray-900/10" /> */}
                           </th>
                         </tr>
-
                         {section.features.map((feature) => (
-                          <tr key={feature.name} className="">
+                          <tr key={feature.name}>
                             <th
                               scope="row"
                               className="py-2 text-sm font-normal leading-6 text-gray-900 text-[8px]"
@@ -411,7 +405,6 @@ const Pricing = () => {
                               {feature.name}
                               <div className="absolute inset-x-8 mt-4 h-px bg-gray-900/5" />
                             </th>
-
                             {tiers.map((tier) => (
                               <td key={tier.id} className="px-6 py-4 xl:px-8">
                                 {typeof feature.tiers[tier.name] ===
@@ -422,27 +415,19 @@ const Pricing = () => {
                                 ) : (
                                   <>
                                     {feature.tiers[tier.name] === true ? (
-                                      <>
-                                        <CheckIcon
-                                          aria-hidden="true"
-                                          className="mx-auto h-5 w-5 text-indigo-600"
-                                        />
-                                      </>
-                                    ) : (
-                                      // <MinusIcon
-                                      //   aria-hidden="true"
-                                      //   className="mx-auto h-5 w-5 text-gray-400"
-                                      // />
-
                                       <div className="flex items-center justify-center">
                                         <img
                                           src={checkGreenIcon}
-                                          alt="omo"
+                                          alt="Included"
                                           width={20}
                                         />
                                       </div>
+                                    ) : (
+                                      <CheckIcon
+                                        aria-hidden="true"
+                                        className="mx-auto h-5 w-5 text-indigo-600"
+                                      />
                                     )}
-
                                     <span className="sr-only">
                                       {feature.tiers[tier.name] === true
                                         ? "Included"
