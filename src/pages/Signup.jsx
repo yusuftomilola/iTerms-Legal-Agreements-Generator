@@ -31,8 +31,39 @@ const Signup = () => {
     }));
   };
 
+  const validateForm = () => {
+    const { fullName, email, password } = formData;
+
+    // Check if full name is empty
+    if (!fullName.trim()) {
+      toast.error("Full name is required");
+      return false;
+    }
+
+    // Email validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return false;
+    }
+
+    // Password length validation
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    // Perform validation
+    if (!validateForm()) {
+      return; // Stop submission if validation fails
+    }
+
     try {
       console.log("Form submitted");
       const { email, password, fullName } = formData;
@@ -108,13 +139,9 @@ const Signup = () => {
       toast.error("Error signing up");
     }
   };
+
   return (
     <>
-      {/*
-        <html class="h-full bg-white">
-        <body class="h-full">
-      */}
-
       <div className="flex min-h-screen">
         <div className="flex flex-1 flex-col justify-center px-4 pb-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
@@ -138,10 +165,10 @@ const Signup = () => {
                       <input
                         id="fullName"
                         name="fullName"
-                        type="fullName"
+                        type="text"
                         value={formData.fullName}
                         onChange={handleInputs}
-                        required
+                        // required
                         placeholder="Your Name"
                         autoComplete="fullName"
                         className="block w-full border-grey-700 border-b-2 py-1.5 placeholder:text-gray-400 focus:ring-0 outline-none sm:text-sm sm:leading-6 bg-transparent"
@@ -161,7 +188,7 @@ const Signup = () => {
                         id="email"
                         name="email"
                         type="email"
-                        required
+                        // required
                         value={formData.email}
                         onChange={handleInputs}
                         placeholder="Enter your email"
@@ -183,7 +210,7 @@ const Signup = () => {
                         id="password"
                         name="password"
                         type="password"
-                        required
+                        // required
                         value={formData.password}
                         onChange={handleInputs}
                         placeholder="At least 8 characters long"

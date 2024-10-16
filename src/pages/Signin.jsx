@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   auth,
   googleAuthProvider,
@@ -23,42 +22,79 @@ export default function SignIn() {
     password: "",
   });
 
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+
+  // Handle input changes and clear corresponding errors
   const handleInputs = (e) => {
+    const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+
+    // Clear error as the user types
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  // Form validation logic
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { email: "", password: "" };
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+      toast.error("Email is required");
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+      toast.error("Email is invalid");
+      isValid = false;
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+      toast.error("Password is required");
+      isValid = false;
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+      toast.error("Password must be at least 8 characters long");
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    try {
-      console.log("Form submitted");
-      const { email, password } = formData;
+    if (validateForm()) {
+      try {
+        const { email, password } = formData;
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const user = userCredential.user;
 
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      const user = userCredential.user;
-
-      if (user) {
-        console.log("Successfully signed in");
-        console.log(user);
-        console.log(user.email);
-        console.log(user.displayName);
-        console.log(auth.currentUser.email);
-        toast.success(`Welcome, ${auth.currentUser.displayName}`, {
-          autoClose: 1000,
-        });
-        navigateTo("/");
+        if (user) {
+          toast.success(`Welcome, ${auth.currentUser.displayName}`, {
+            autoClose: 1000,
+          });
+          navigateTo("/");
+        }
+      } catch (error) {
+        toast.error("Error logging in");
       }
-    } catch (error) {
-      console.log(error);
-      toast.error("Error logging in");
-      console.log(error.code);
     }
   };
 
@@ -68,10 +104,7 @@ export default function SignIn() {
         auth,
         googleAuthProvider
       );
-
       const user = googleUserCredential.user;
-
-      console.log("google user: ", user);
 
       toast.success(`Welcome, ${auth.currentUser.displayName}`, {
         autoClose: 1000,
@@ -79,7 +112,6 @@ export default function SignIn() {
       navigateTo("/");
     } catch (error) {
       toast.error("Error logging in");
-      console.log(error);
     }
   };
 
@@ -89,7 +121,6 @@ export default function SignIn() {
         auth,
         facebookAuthProvider
       );
-
       const facebookUser = facebookUserCredential.user;
 
       const facebookCredential = FacebookAuthProvider.credentialFromResult(
@@ -97,7 +128,6 @@ export default function SignIn() {
       );
       const facebookAccessToken = facebookCredential.accessToken;
 
-      console.log("facebook user: ", facebookUser);
       toast.success("Account created", {
         autoClose: 1000,
       });
@@ -106,6 +136,7 @@ export default function SignIn() {
       toast.error("Error logging in");
     }
   };
+
   return (
     <>
       <div className="flex min-h-full flex-1">
@@ -151,111 +182,83 @@ export default function SignIn() {
               </div>
             </div>
 
-            <div className="">
+            <form className="space-y-6" onSubmit={handleFormSubmit}>
               <div>
-                <form className="space-y-6" onSubmit={handleFormSubmit}>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Email
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputs}
-                        placeholder="Enter your email"
-                        autoComplete="email"
-                        className="block w-full border-grey-700 border-b-2 py-1.5 placeholder:text-gray-400 focus:ring-0 outline-none sm:text-sm sm:leading-6 bg-transparent"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Password
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        required
-                        value={formData.password}
-                        onChange={handleInputs}
-                        placeholder="At least 8 characters long"
-                        autoComplete="current-password"
-                        className="block w-full border-grey-700 border-b-2 py-1.5 placeholder:text-gray-400 focus:ring-0 outline-none sm:text-sm sm:leading-6 bg-transparent"
-                      />
-                    </div>
-                  </div>
-
-                  {/* <div className="flex items-center justify-between"> */}
-                  {/* <div className="flex items-center">
-                      <input
-                        id="remember-me"
-                        name="remember-me"
-                        type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                      />
-                      <label
-                        htmlFor="remember-me"
-                        className="ml-3 block text-sm leading-6 text-gray-700"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-
-                    <div className="text-sm leading-6">
-                      <a
-                        href="#"
-                        className="font-semibold text-indigo-600 hover:text-indigo-500"
-                      >
-                        Forgot password?
-                      </a>
-                    </div> */}
-                  {/* </div> */}
-
-                  <div>
-                    <button
-                      type="submit"
-                      className="flex w-full justify-center rounded-md bg-[#8770FF] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#7963e6]"
-                    >
-                      Sign in
-                    </button>
-                  </div>
-                </form>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Email
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    // required
+                    value={formData.email}
+                    onChange={handleInputs}
+                    placeholder="Enter your email"
+                    autoComplete="email"
+                    className="block w-full border-grey-700 border-b-2 py-1.5 placeholder:text-gray-400 focus:ring-0 outline-none sm:text-sm sm:leading-6 bg-transparent"
+                  />
+                  {/* {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )} */}
+                </div>
               </div>
 
-              <div className="mt-5">
-                <div className="mt-3">
-                  <p>
-                    Don't have an account?
-                    <Link to={"/sign-up"} className="underline text-[#8770FF]">
-                      {" "}
-                      Sign up
-                    </Link>
-                  </p>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Password
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    // required
+                    value={formData.password}
+                    onChange={handleInputs}
+                    placeholder="At least 8 characters long"
+                    autoComplete="current-password"
+                    className="block w-full border-grey-700 border-b-2 py-1.5 placeholder:text-gray-400 focus:ring-0 outline-none sm:text-sm sm:leading-6 bg-transparent"
+                  />
+                  {/* {errors.password && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.password}
+                    </p>
+                  )} */}
                 </div>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-[#8770FF] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#7963e6]"
+                >
+                  Sign in
+                </button>
+              </div>
+            </form>
+
+            <div className="mt-5">
+              <div className="mt-3">
+                <p>
+                  Don't have an account?
+                  <Link to={"/sign-up"} className="underline text-[#8770FF]">
+                    {" "}
+                    Sign up
+                  </Link>
+                </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="relative hidden w-0 h-screen flex-1 lg:block bg-[#8770FF]">
-          {/* <img
-            alt=""
-            src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-            className="absolute inset-0 h-full w-full object-cover bg-[#8770FF]"
-          /> */}
-        </div>
+        <div className="relative hidden w-0 h-screen flex-1 lg:block bg-[#8770FF]"></div>
       </div>
     </>
   );
