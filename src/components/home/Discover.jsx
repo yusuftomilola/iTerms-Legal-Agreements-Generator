@@ -118,7 +118,7 @@ const Discover = () => {
           <ButtonWithBg
             text={"Generate"}
             bgColor={"#8770ff"}
-            link={"/sign-up"}
+            link={"/documents"}
           />
 
           <button type="button" className="flex gap-1 items-center text-[11px]">

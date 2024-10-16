@@ -46,7 +46,7 @@ const Hero = () => {
             <ButtonWithBg
               text={"Generate for free"}
               bgColor={"#8770ff"}
-              link={"/sign-up"}
+              link={"/documents"}
             />
           </div>
 
@@ -54,7 +54,7 @@ const Hero = () => {
             <ButtonWithBg
               text={"Generate"}
               bgColor={"#8770ff"}
-              link={"/sign-up"}
+              link={"/documents"}
             />
           </div>
 

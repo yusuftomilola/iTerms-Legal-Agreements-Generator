@@ -60,7 +60,7 @@ const Signup = () => {
         password: "",
       });
     } catch (error) {
-      toast.error(error.message);
+      toast.error("Error signing up");
       console.log(error);
       console.log(error.message);
       console.log(error.code);
@@ -80,7 +80,7 @@ const Signup = () => {
       });
       navigateTo("/");
     } catch (error) {
-      toast.error(error.message);
+      toast.error("Error signing up");
       console.log(error.message);
     }
   };
@@ -105,7 +105,7 @@ const Signup = () => {
       });
       navigateTo("/");
     } catch (error) {
-      toast.error(error.message);
+      toast.error("Error signing up");
     }
   };
   return (

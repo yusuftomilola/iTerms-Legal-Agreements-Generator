@@ -57,10 +57,10 @@ const EachBlogPage = () => {
 
   return (
     <>
-      <main className="max-w-[650px] w-full mx-auto mb-[170px] mt-[60px]">
+      <main className="max-w-[550px] lg:max-w-[650px] w-full mx-auto mb-[170px] mt-[60px] pl-6 pr-10 lg:pl-0 lg:pr-0">
         <section className="flex gap-8">
           {/* left section */}
-          <div className="w-[70%] ">
+          <div className="w-[100%] lg:w-[70%]">
             <div className="bg-[#8770ff] w-full h-[200px] mb-5" />
 
             <H1 textSize={30} fontWeight={300} id={"intro"}>
@@ -227,7 +227,7 @@ const EachBlogPage = () => {
           </div>
 
           {/* right section */}
-          <div className="min-h-screen w-[30%]">
+          <div className="min-h-screen w-[30%] hidden lg:flex">
             <div className=" flex flex-col gap-3 sticky top-[0px]">
               <H2 textSize={16} fontWeight={400}>
                 Contents
@@ -320,6 +320,10 @@ const EachBlogPage = () => {
           <H2 textSize={24} fontWeight={400}>
             Related Posts
           </H2>
+
+          {/* grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 */}
+
+          {/* flex flex-wrap gap-4 mt-10 */}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
             {BlogData.splice(0, 4).map((blog) => {

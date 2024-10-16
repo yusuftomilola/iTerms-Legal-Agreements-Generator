@@ -124,7 +124,44 @@ const Pricing = () => {
   return (
     <>
       <main className="max-w-[800px] w-full mx-auto mb-[170px]">
-        <div className="flex flex-col gap-2 text-center justify-center items-center mb-[30px] mt-[60px]">
+        {/* MOBILE */}
+        <div className="flex flex-col gap-2 text-center justify-center items-center mb-[30px] mt-[60px] lg:hidden max-w-[300px] mx-auto">
+          <PreHeading>FLEXIBLE PRICING</PreHeading>
+          <H2 textSize={28}>Simple, transparent Pricing</H2>
+          <P width={330} marginTop={0} fontSize={14} fontWeight={400}>
+            No contracts. No surprise fees.
+          </P>
+
+          <div className="mt-3" />
+
+          <Field className="flex items-center justify-center">
+            <Label as="span" className="ml-3 text-sm">
+              <P width={70} fontWeight={600} marginTop={0}>
+                First month
+              </P>
+            </Label>
+
+            <Switch
+              checked={enabled}
+              onChange={setEnabled}
+              className="group relative inline-flex h-4.5 w-8 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-[#8770ff] transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 data-[checked]:bg-gray-200 ml-2"
+            >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out group-data-[checked]:translate-x-3"
+              />
+            </Switch>
+
+            <Label as="span" className="ml-3 text-sm">
+              <P width={100} marginTop={0}>
+                Following months
+              </P>
+            </Label>
+          </Field>
+        </div>
+
+        {/* DESKTOP */}
+        <div className="lg:flex flex-col gap-2 text-center justify-center items-center mb-[30px] mt-[60px] hidden">
           <PreHeading>FLEXIBLE PRICING</PreHeading>
           <H2 textSize={38}>Simple, transparent Pricing</H2>
           <P width={330} marginTop={0} fontSize={14} fontWeight={400}>
@@ -159,10 +196,10 @@ const Pricing = () => {
           </Field>
         </div>
 
-        <div className="bg-white pb-24 sm:pb-32">
+        <div className="bg-transparent lg:bg-white pb-24 sm:pb-32">
           <div className="mx-auto w-full px-6 lg:px-8">
             {/* xs to lg */}
-            <div className="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">
+            <div className="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden bg-white shadow-lg rounded-lg">
               {tiers.map((tier) => (
                 <section
                   key={tier.id}
@@ -173,30 +210,43 @@ const Pricing = () => {
                     "p-8"
                   )}
                 >
-                  <h3
-                    id={tier.id}
-                    className="text-sm font-semibold leading-6 text-gray-900 "
-                  >
-                    {tier.name}
+                  <h3 id={tier.id}>
+                    <div className="text-[10px] font-semibold leading-7 text-[#565A65] bg-[rgba(182,191,217,0.12)] rounded-md w-[85px] text-center h-[20px] flex items-center justify-center">
+                      {tier.name}
+                    </div>
                   </h3>
 
-                  <p className="mt-2 flex items-baseline gap-x-1 text-gray-900 ">
-                    <span className="text-4xl font-bold ">
-                      {tier.priceMonthly}
-                    </span>
-                    <span className="text-sm font-semibold ">/month</span>
+                  <p
+                    className={`${
+                      tier.type === "Pro+" ? "text-[#3EDE91]" : "text-[#8770FF]"
+                    } text-[22px] font-light`}
+                  >
+                    {tier.type}
                   </p>
+
+                  <div className="flex items-baseline gap-x-1 text-gray-900 mt-4">
+                    <span className="text-2xl font-light relative">
+                      <span className="scriptBefore">
+                        {tier.subScriptBefore}
+                      </span>
+                      <span className="pl-2.5">{tier.priceMonthly}</span>
+                      <span className="scriptAfter">{tier.subScriptAfter}</span>
+                    </span>
+                    <span className="text-[10px] font-semibold leading-6 text-gray-400">
+                      {tier.month}
+                    </span>
+                  </div>
+
                   <a
                     href={tier.href}
-                    aria-describedby={tier.id}
                     className={classNames(
                       tier.mostPopular
-                        ? "bg-indigo-600 text-white hover:bg-indigo-500"
-                        : "text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300",
-                      "mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
+                        ? "bg-[#8770FF] text-[#f0f0f0] hover:bg-indigo-500"
+                        : "text-[#8770FF] ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300",
+                      "mt-2 block rounded-md px-2 py-[3px] text-center text-[10px] leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8770FF] w-[100px]"
                     )}
                   >
-                    Buy plan
+                    {tier.cta}
                   </a>
 
                   <ul

@@ -11,7 +11,7 @@ const Sidebar = () => {
   console.log(auth.currentUser.displayName);
 
   return (
-    <aside className="w-[30%] h-[75vh] shadow-lg rounded-sm flex flex-col gap-[50px] mt-12 bg-white">
+    <aside className="w-[30%] h-[75vh] shadow-lg rounded-sm lg:flex flex-col gap-[50px] mt-12 bg-white hidden sticky top-[50px]">
       <div className="flex justify-center flex-col items-center gap-1">
         <div className="rounded-full h-[50px] w-[50px] mt-[-30px] shadow-lg">
           <img src={userImage} alt="user image" className="w-full" />

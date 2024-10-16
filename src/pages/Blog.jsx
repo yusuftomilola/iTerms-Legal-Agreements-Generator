@@ -51,7 +51,7 @@ const Blog = () => {
 
         <section className="flex gap-8">
           {/* categories */}
-          <div className="w-[20%]">
+          <div className="w-[20%] hidden lg:block">
             <H3 textSize={14} fontWeight={400}>
               Categories
             </H3>
@@ -71,7 +71,7 @@ const Blog = () => {
           </div>
 
           {/* blog cards */}
-          <div className="w-[80%] flex flex-col items-center">
+          <div className="w-[80%] mx-auto lg:mx-0 flex flex-col items-center">
             {/* current blog cards data */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[650px] w-full mx-auto">
               {currentData.map((blog) => {

@@ -17,6 +17,7 @@ import EachBlogPage from "./pages/EachBlogPage";
 import SignedInLayout from "./layout/SignedInLayout";
 import Settings from "./pages/Settings";
 import Subscriptions from "./pages/Subscriptions";
+import AuthWrapper from "./components/AuthWrapper";
 
 const router = createBrowserRouter([
   {
@@ -32,61 +33,56 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
+    path: "/",
     element: (
-      <SignedInLayout>
+      <Layout>
         <Outlet />
-      </SignedInLayout>
+      </Layout>
     ),
     children: [
       {
-        path: "/documents",
-        element: <Generate />,
+        index: true,
+        element: <Home />,
       },
       {
-        path: "/settings",
-        element: <Settings />,
+        path: "/contact",
+        element: <Contact />,
       },
       {
-        path: "/subscriptions",
-        element: <Subscriptions />,
+        path: "/pricing",
+        element: <Pricing />,
+      },
+      {
+        path: "/blog",
+        element: <Blog />,
+      },
+      {
+        path: "/blog/:id",
+        element: <EachBlogPage />,
       },
     ],
   },
-
   {
     element: <PrivateRoutes />,
     children: [
       {
-        path: "/",
         element: (
-          <Layout>
+          <SignedInLayout>
             <Outlet />
-          </Layout>
+          </SignedInLayout>
         ),
         children: [
           {
-            index: true,
-            element: <Home />,
-          },
-          // {
-          //   path: "/generate",
-          //   element: <Generate />,
-          // },
-          {
-            path: "/contact",
-            element: <Contact />,
+            path: "/documents",
+            element: <Generate />,
           },
           {
-            path: "/pricing",
-            element: <Pricing />,
+            path: "/settings",
+            element: <Settings />,
           },
           {
-            path: "/blog",
-            element: <Blog />,
-          },
-          {
-            path: "/blog/:id",
-            element: <EachBlogPage />,
+            path: "/subscriptions",
+            element: <Subscriptions />,
           },
         ],
       },
@@ -96,10 +92,12 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="max-w-[1800px] m-auto">
-      <ToastContainer />
-      <RouterProvider router={router} />
-    </div>
+    <AuthWrapper>
+      <div className="max-w-[1800px] m-auto">
+        <ToastContainer />
+        <RouterProvider router={router} />
+      </div>
+    </AuthWrapper>
   );
 }
 

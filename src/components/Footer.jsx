@@ -43,7 +43,7 @@ const Footer = () => {
           Ready to protect your <br /> business?
         </H2>
 
-        <P width={200} marginTop={0}>
+        <P width={300} marginTop={0}>
           More than 140,000 businesses <br />
           use iTerms. Join our community <br />
           of amazing companies!

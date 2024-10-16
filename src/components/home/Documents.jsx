@@ -17,7 +17,7 @@ const Documents = () => {
       icon: docIconOne,
       title: "Privacy Policy",
       desc: "Legal document disclosing partial or all ways an entity gathers, uses, discloses, and manages client personal data. ",
-      link1: "/contact",
+      link1: "/documents",
       link2: "",
     },
     {
@@ -25,7 +25,7 @@ const Documents = () => {
       icon: docIconTwo,
       title: "Terms & Conditions",
       desc: "Legal agreements between a service provider and an individual who wishes to use their service.",
-      link1: "",
+      link1: "/documents",
       link2: "",
     },
     {
@@ -33,7 +33,7 @@ const Documents = () => {
       icon: docIconThree,
       title: "Cookie Policy",
       desc: "A declaration to users disclosing what user data is collected while using their platform and what it is used for.",
-      link1: "",
+      link1: "/documents",
       link2: "",
     },
     {
@@ -41,7 +41,7 @@ const Documents = () => {
       icon: docIconFour,
       title: "Eula",
       desc: "A legal contract between developer/vendor and user who has purchased the software.",
-      link1: "",
+      link1: "/documents",
       link2: "",
     },
     {
@@ -49,7 +49,7 @@ const Documents = () => {
       icon: docIconFive,
       title: "Disclaimer",
       desc: "A notice is placed on your website or mobile app to limit your liability for the outcome of using your site or application.",
-      link1: "",
+      link1: "/documents",
       link2: "",
     },
   ];

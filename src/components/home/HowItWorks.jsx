@@ -60,7 +60,7 @@ const HowItWorks = () => {
                     <div className="absolute top-1/2 left-full w-8 sm:w-16 h-[1px] bg-[#8770ff] -translate-y-1/2"></div>
                   )}
                 </div>
-                <p className="text-center text-[9px] sm:text-[10px] font-medium max-w-[80px] sm:max-w-[120px]">
+                <p className="text-center text-[9px] sm:text-[10px] font-medium max-w-[80px] sm:max-w-[90px]">
                   {step.text}
                 </p>
               </div>

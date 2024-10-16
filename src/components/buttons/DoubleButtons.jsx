@@ -5,15 +5,17 @@ const ButtonWithBgg = ({ text, bgColor, link1, onClick, isHorizontal }) => {
   return (
     <>
       {link1 ? (
-        <button
-          type="button"
-          className={`bg-[${bgColor}] text-[#fff] px-6 py-2 rounded-md cursor-pointer text-[11px] ${
-            isHorizontal ? "" : "w-full"
-          }`}
-          onClick={onClick}
-        >
-          <Link to={link1}>{text}</Link>
-        </button>
+        <Link to={link1}>
+          <button
+            type="button"
+            className={`bg-[${bgColor}] text-[#fff] px-6 py-2 rounded-md cursor-pointer text-[11px] ${
+              isHorizontal ? "" : "w-full"
+            }`}
+            onClick={onClick}
+          >
+            {text}
+          </button>
+        </Link>
       ) : (
         <button
           type="button"
