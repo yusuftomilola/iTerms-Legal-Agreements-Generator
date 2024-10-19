@@ -303,28 +303,29 @@ const Settings = () => {
           </>
         ) : (
           <>
-            <div>
-              <div className="w-[300px]">
+            <div className="flex flex-col gap-6 h-[400px]">
+              <div className="max-w-[300px]">
                 <H2 fontWeight={400}>
                   Are You Positive You wish to delete Your iTerms Account?
                 </H2>
               </div>
 
-              <div>
-                <P width={370}>
+              <div className="">
+                <p className="text-[#646464] text-[10px] max-w-[370px] w-full">
                   Please note that should you delete your account, all policies
                   will be permanently removed from our database. You will be
                   unable to retrieve your documents should you wish in the
                   future.
-                </P>
-                <P width={350}>
+                </p>
+
+                <p className="text-[#646464] text-[10px] max-w-[350px] mt-2 w-full">
                   Before you go, please do not hesitate to contact our support
                   team with any questions or concerns you may have with our
                   services.
-                </P>
+                </p>
               </div>
 
-              <div className="flex">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between">
                 {/* PASSWORD */}
                 <div className="">
                   <Label htmlFor="password" text={"Password"} />
@@ -342,23 +343,25 @@ const Settings = () => {
                   </div>
                 </div>
 
-                {/* back */}
-                <button
-                  className="text-[#8770FF] underline text-[12px]"
-                  type="button"
-                  onClick={deleteAccountToggle}
-                >
-                  Back
-                </button>
+                <div className="flex gap-4 items-end mt-6 sm:mt-0">
+                  {/* back */}
+                  <button
+                    className="text-[#8770FF] underline text-[12px]"
+                    type="button"
+                    onClick={deleteAccountToggle}
+                  >
+                    Back
+                  </button>
 
-                {/* Delete */}
-                <button
-                  type="button"
-                  disabled={isDeleting}
-                  className={`bg-[#FF607C] text-[#fff] px-10 py-2 rounded-md cursor-pointer text-[11px]`}
-                >
-                  {isDeleting ? "Deleting..." : "Delete"}
-                </button>
+                  {/* Delete */}
+                  <button
+                    type="button"
+                    disabled={isDeleting}
+                    className={`bg-[#FF607C] text-[#fff] px-8 h-[35px] rounded-md cursor-pointer text-[11px]`}
+                  >
+                    {isDeleting ? "Deleting..." : "Delete"}
+                  </button>
+                </div>
               </div>
             </div>
           </>
