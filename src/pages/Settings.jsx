@@ -177,7 +177,7 @@ const Settings = () => {
             <div className="">
               <form onSubmit={handleFormSubmit} className="flex flex-col gap-2">
                 {/* FIRST SECTION */}
-                <div className="flex gap-6">
+                <div className="flex gap-6 flex-col sm:flex-row">
                   {/* FIRST NAME */}
                   <div className="">
                     <Label htmlFor="firstName" text={"First Name"} />
@@ -245,7 +245,7 @@ const Settings = () => {
                 </div>
 
                 {/* THIRD SECTION - EMAIL */}
-                <div className="flex justify-between items-end ">
+                <div className="flex sm:flex-row sm:justify-between sm:items-end flex-col items-start gap-4">
                   <div>
                     <Label htmlFor="email" text={"Email"} />
                     <br />
@@ -281,7 +281,7 @@ const Settings = () => {
                 </div>
 
                 {/* FOURTH SECTION */}
-                <div className="flex justify-between items-center mt-2">
+                <div className="flex sm:flex-row sm:justify-between sm:items-center mt-1 flex-col sm:mt-2 items-start sm:gap-0 gap-3">
                   <button
                     className="text-[#8770FF] underline text-[12px]"
                     type="button"

@@ -7,7 +7,7 @@ import Li from "./Li";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#8770ff] max-w-[1200px] m-auto h-[500px] relative flex items-end ">
+    <footer className="bg-[#8770ff] max-w-[1500px] m-auto h-[500px] relative flex items-end ">
       <div
         className="bg-white rounded-md shadow-xl lg:max-w-[700px] lg:w-full h-[260px] absolute 
         -top-[50px] left-[50%] transform -translate-x-1/2 z-20 lg:flex flex-col items-center gap-2 justify-center text-center hidden"

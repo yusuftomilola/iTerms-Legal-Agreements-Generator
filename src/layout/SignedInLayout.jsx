@@ -6,7 +6,7 @@ const SignedInLayout = ({ children }) => {
     <div className="h-screen  heroBackgroundImage">
       <Nav />
 
-      <div className="flex gap-6 max-w-[800px] mx-auto">
+      <div className="flex gap-6 max-w-[900px] mx-auto">
         <Sidebar />
 
         {children}
