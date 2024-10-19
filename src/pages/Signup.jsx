@@ -5,6 +5,7 @@ import {
   auth,
   googleAuthProvider,
   facebookAuthProvider,
+  db,
 } from "../config/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -15,13 +16,16 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { googleIcon, facebookIcon } from "../assets/icons";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 
 const Signup = () => {
   const navigateTo = useNavigate();
   const [formData, setFormData] = useState({
-    fullName: "",
+    firstName: "",
     email: "",
     password: "",
+    firstName: "",
+    lastName: "",
   });
 
   const handleInputs = (e) => {
@@ -32,11 +36,11 @@ const Signup = () => {
   };
 
   const validateForm = () => {
-    const { fullName, email, password } = formData;
+    const { firstName, email, password } = formData;
 
     // Check if full name is empty
-    if (!fullName.trim()) {
-      toast.error("Full name is required");
+    if (!firstName.trim()) {
+      toast.error("firstName is required");
       return false;
     }
 
@@ -66,7 +70,7 @@ const Signup = () => {
 
     try {
       console.log("Form submitted");
-      const { email, password, fullName } = formData;
+      const { email, password, firstName } = formData;
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -76,8 +80,20 @@ const Signup = () => {
 
       // update user profile
       await updateProfile(user, {
-        displayName: fullName,
+        displayName: firstName,
       });
+
+      // prepare data for firestore cloud database
+      const formDataCopy = { ...formData };
+      const firestoreData = {
+        firstName: formDataCopy.firstName,
+        lastName: formDataCopy.lastName,
+        email: formDataCopy.email,
+        timeStamp: serverTimestamp(),
+      };
+
+      // Create user profile in Firestore cloud database
+      await setDoc(doc(db, "users", auth.currentUser.uid), firestoreData);
 
       console.log("email and password user: ", user);
 
@@ -86,7 +102,7 @@ const Signup = () => {
         autoClose: 1000,
       });
       setFormData({
-        fullName: "",
+        firstName: "",
         email: "",
         password: "",
       });
@@ -156,21 +172,21 @@ const Signup = () => {
                 <form className="space-y-6" onSubmit={handleFormSubmit}>
                   <div>
                     <label
-                      htmlFor="fullName"
+                      htmlFor="firstName"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Your Name
                     </label>
                     <div className="mt-2">
                       <input
-                        id="fullName"
-                        name="fullName"
+                        id="firstName"
+                        name="firstName"
                         type="text"
-                        value={formData.fullName}
+                        value={formData.firstName}
                         onChange={handleInputs}
                         // required
-                        placeholder="Your Name"
-                        autoComplete="fullName"
+                        placeholder="Your First Name"
+                        autoComplete="firstName"
                         className="block w-full border-grey-700 border-b-2 py-1.5 placeholder:text-gray-400 focus:ring-0 outline-none sm:text-sm sm:leading-6 bg-transparent"
                       />
                     </div>

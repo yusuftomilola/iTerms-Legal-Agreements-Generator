@@ -40,14 +40,14 @@ const Sidebar = () => {
           Subscriptions
         </NavLink>
 
-        {/* <NavLink
+        <NavLink
           to={"/settings"}
           className={({ isActive }) =>
             `flex items-center pl-8 gap-1.5 py-1.5 ${isActive ? "active2" : ""}`
           }
         >
           <img src={genSettingsIcon} alt="Settings icon" width={18} /> Settings
-        </NavLink> */}
+        </NavLink>
       </ol>
     </aside>
   );

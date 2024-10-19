@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect, useLayout } from "react";
 import { downRightArrowIcon, shortDownArrowIcon } from "../assets/icons";
 import ButtonWithBg from "./buttons/ButtonWithBg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { signOut } from "firebase/auth";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { getDoc, doc } from "firebase/firestore";
 
 const Nav = () => {
+  const [userProfile, setUserProfile] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigateTo = useNavigate();
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      if (auth.currentUser) {
+        try {
+          const userSnapshot = await getDoc(
+            doc(db, "users", auth.currentUser.uid)
+          );
+
+          const userProfileData = userSnapshot.data();
+          setUserProfile(userProfileData);
+        } catch (error) {
+          console.log("Error fethcing user profile:", error);
+        }
+      }
+    };
+
+    getUserProfile();
+  }, []);
 
   const logOut = () => {
     signOut(auth);
@@ -65,9 +86,9 @@ const Nav = () => {
         />
       </div>
 
-      {auth.currentUser ? (
+      {auth.currentUser && userProfile ? (
         <div className="hidden lg:flex items-center gap-2">
-          <p className="text-[11px]">Hi, {auth.currentUser.displayName}</p>
+          <p className="text-[11px]">Hi, {userProfile.firstName}</p>
           <ButtonWithBg text="Log out" bgColor="#8770FF" onClick={logOut} />
         </div>
       ) : (

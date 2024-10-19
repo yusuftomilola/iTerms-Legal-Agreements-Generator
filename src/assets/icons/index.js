@@ -58,8 +58,12 @@ import genDocumentsIcon from "./genDocumentsIcon.svg";
 import genSettingsIcon from "./genSettingsIcon.svg";
 import genSubscriptionIcon from "./genSubsciptionIcon.svg";
 import userImage from "./userImage.svg";
+import cameraIcon from "./cameraIcon.svg";
+import checkMarkPurpleIcon from "./checkMarkPurpleIcon.svg";
 
 export {
+  checkMarkPurpleIcon,
+  cameraIcon,
   userImage,
   genDocumentsIcon,
   genSettingsIcon,
