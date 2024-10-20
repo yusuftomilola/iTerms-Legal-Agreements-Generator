@@ -22,6 +22,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Settings = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUserimageUploading, setIsUserimageUploading] = useState(false);
   const [isDeleting, setisDeleting] = useState(false);
   const fileInputRef = useRef(null);
   const [isDeleteAccountPageVisible, setIsDeleteAccountPageVisible] =
@@ -163,6 +164,7 @@ const Settings = () => {
         toast.error("File size exceeds 5MB");
       } else {
         try {
+          setIsUserimageUploading(true);
           const userImageRef = ref(storage, `images/${file.name}`);
           await uploadBytes(userImageRef, file);
 
@@ -177,11 +179,10 @@ const Settings = () => {
             userImageURL: userImageURL,
           });
 
+          setIsUserimageUploading(false);
           toast.success("File uploaded successfully");
-          console.log(userImageURL);
         } catch (error) {
           toast.error("Failed to upload file");
-          console.log(error);
         }
       }
     }
@@ -238,7 +239,7 @@ const Settings = () => {
                   className="text-[#8770FF] underline text-[13px]"
                   onClick={handleBrowseButtonClick}
                 >
-                  Browse
+                  {isUserimageUploading ? "uploading..." : "Browse"}
                 </button>
               </div>
             </div>

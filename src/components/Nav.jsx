@@ -9,6 +9,7 @@ import { getDoc, doc } from "firebase/firestore";
 
 const Nav = () => {
   const [userProfile, setUserProfile] = useState(null);
+  const [userImageUrl, setUserImageUrl] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigateTo = useNavigate();
 
@@ -28,7 +29,17 @@ const Nav = () => {
       }
     };
 
+    const getUserImageURL = async () => {
+      const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+
+      if (userSnapshot.data()) {
+        const userProfile = userSnapshot.data();
+        setUserImageUrl(userProfile.userImageURL);
+      }
+    };
+
     getUserProfile();
+    getUserImageURL();
   }, []);
 
   const logOut = () => {
@@ -88,7 +99,19 @@ const Nav = () => {
 
       {auth.currentUser && userProfile ? (
         <div className="hidden lg:flex items-center gap-2">
+          {/* user name */}
           <p className="text-[11px]">Hi, {userProfile.firstName}</p>
+          {/* user image */}
+          {userImageUrl && (
+            <div className="rounded-full flex items-center justify-center w-[25px] h-[25px] overflow-hidden">
+              <img
+                src={userImageUrl}
+                alt="user image"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+
           <ButtonWithBg text="Log out" bgColor="#8770FF" onClick={logOut} />
         </div>
       ) : (

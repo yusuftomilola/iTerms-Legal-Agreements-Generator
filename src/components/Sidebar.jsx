@@ -4,17 +4,40 @@ import {
   genSubscriptionIcon,
   userImage,
 } from "../assets/icons";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { NavLink } from "react-router-dom";
+import { getDoc, doc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 const Sidebar = () => {
-  console.log(auth.currentUser.displayName);
+  const [userImageUrl, setUserImageUrl] = useState("");
+
+  useEffect(() => {
+    getUserImageURL();
+  }, []);
+
+  const getUserImageURL = async () => {
+    const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+
+    if (userSnapshot.data()) {
+      const userProfile = userSnapshot.data();
+      setUserImageUrl(userProfile.userImageURL);
+    }
+  };
 
   return (
     <aside className="w-[200px] h-[75vh] shadow-lg rounded-sm lg:flex flex-col gap-[50px] mt-12 bg-white hidden sticky top-[50px]">
       <div className="flex justify-center flex-col items-center gap-1">
-        <div className="rounded-full h-[50px] w-[50px] mt-[-30px] shadow-lg">
-          <img src={userImage} alt="user image" className="w-full" />
+        <div className="rounded-full h-[50px] w-[50px] mt-[-30px] shadow-lg flex items-center justify-center overflow-hidden">
+          {userImageUrl ? (
+            <img
+              src={userImageUrl}
+              alt="user image"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img src={userImage} alt="user image" className="w-full" />
+          )}
         </div>
         <p className="text-[13px]">{auth.currentUser.displayName}</p>
       </div>
