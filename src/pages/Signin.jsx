@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   FacebookAuthProvider,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -98,20 +99,36 @@ export default function SignIn() {
     }
   };
 
+  // const handleGoogleClick = async () => {
+  //   try {
+  //     const googleUserCredential = await signInWithPopup(
+  //       auth,
+  //       googleAuthProvider
+  //     );
+  //     const user = googleUserCredential.user;
+
+  //     toast.success(`Welcome, ${auth.currentUser.displayName}`, {
+  //       autoClose: 1000,
+  //     });
+  //     navigateTo("/");
+  //   } catch (error) {
+  //     toast.error("Error logging in");
+  //   }
+  // };
+
   const handleGoogleClick = async () => {
     try {
-      const googleUserCredential = await signInWithPopup(
-        auth,
-        googleAuthProvider
-      );
-      const user = googleUserCredential.user;
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
 
-      toast.success(`Welcome, ${auth.currentUser.displayName}`, {
+      toast.success(`Welcome, ${user.displayName}`, {
         autoClose: 1000,
       });
-      navigateTo("/");
+      navigate("/");
     } catch (error) {
-      toast.error("Error logging in");
+      console.error("Google sign-in error:", error);
+      toast.error("Error logging in with Google");
     }
   };
 
