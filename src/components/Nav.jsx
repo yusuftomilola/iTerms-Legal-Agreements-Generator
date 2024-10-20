@@ -1,4 +1,5 @@
-import { useState, useEffect, useLayout } from "react";
+import { useState, useEffect, useContext } from "react";
+import UserProfileContext from "../context/userProfile";
 import { downRightArrowIcon, shortDownArrowIcon } from "../assets/icons";
 import ButtonWithBg from "./buttons/ButtonWithBg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -8,39 +9,41 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { getDoc, doc } from "firebase/firestore";
 
 const Nav = () => {
-  const [userProfile, setUserProfile] = useState(null);
-  const [userImageUrl, setUserImageUrl] = useState("");
+  // const [userProfile, setUserProfile] = useState(null);
+  // const [userImageUrl, setUserImageUrl] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigateTo = useNavigate();
 
-  useEffect(() => {
-    const getUserProfile = async () => {
-      if (auth.currentUser) {
-        try {
-          const userSnapshot = await getDoc(
-            doc(db, "users", auth.currentUser.uid)
-          );
+  const { userProfile, setUserProfile } = useContext(UserProfileContext);
 
-          const userProfileData = userSnapshot.data();
-          setUserProfile(userProfileData);
-        } catch (error) {
-          console.log("Error fethcing user profile:", error);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const getUserProfile = async () => {
+  //     if (auth.currentUser) {
+  //       try {
+  //         const userSnapshot = await getDoc(
+  //           doc(db, "users", auth.currentUser.uid)
+  //         );
 
-    const getUserImageURL = async () => {
-      const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+  //         const userProfileData = userSnapshot.data();
+  //         setUserProfile(userProfileData);
+  //       } catch (error) {
+  //         console.log("Error fethcing user profile:", error);
+  //       }
+  //     }
+  //   };
 
-      if (userSnapshot.data()) {
-        const userProfile = userSnapshot.data();
-        setUserImageUrl(userProfile.userImageURL);
-      }
-    };
+  //   const getUserImageURL = async () => {
+  //     const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
 
-    getUserProfile();
-    getUserImageURL();
-  }, []);
+  //     if (userSnapshot.data()) {
+  //       const userProfile = userSnapshot.data();
+  //       setUserImageUrl(userProfile.userImageURL);
+  //     }
+  //   };
+
+  //   getUserProfile();
+
+  // }, []);
 
   const logOut = () => {
     signOut(auth);
@@ -102,10 +105,10 @@ const Nav = () => {
           {/* user name */}
           <p className="text-[11px]">Hi, {userProfile.firstName}</p>
           {/* user image */}
-          {userImageUrl && (
+          {userProfile.userImageURL && (
             <div className="rounded-full flex items-center justify-center w-[25px] h-[25px] overflow-hidden">
               <img
-                src={userImageUrl}
+                src={userProfile.userImageURL}
                 alt="user image"
                 className="w-full h-full object-cover"
               />

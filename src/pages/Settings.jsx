@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import UserProfileContext from "../context/userProfile";
 import { auth, db, storage } from "../config/firebase";
 import { deleteUser, updateCurrentUser } from "firebase/auth";
 import {
@@ -31,12 +32,13 @@ const Settings = () => {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
     userImageUrl: "",
   });
   const navigateTo = useNavigate();
 
-  const [userProfile, setUserProfile] = useState({});
+  // const [userProfile, setUserProfile] = useState({});
+
+  const { userProfile, setUserProfile } = useContext(UserProfileContext);
 
   useEffect(() => {
     getUserProfile();
@@ -171,6 +173,11 @@ const Settings = () => {
           const userImageURL = await getDownloadURL(userImageRef);
 
           setFormData((prev) => ({
+            ...prev,
+            userImageUrl: userImageURL,
+          }));
+
+          setUserProfile((prev) => ({
             ...prev,
             userImageUrl: userImageURL,
           }));

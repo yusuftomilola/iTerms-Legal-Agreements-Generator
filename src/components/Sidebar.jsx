@@ -7,31 +7,34 @@ import {
 import { auth, db } from "../config/firebase";
 import { NavLink } from "react-router-dom";
 import { getDoc, doc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import UserProfileContext from "../context/userProfile";
 
 const Sidebar = () => {
-  const [userImageUrl, setUserImageUrl] = useState("");
+  // const [userImageUrl, setUserImageUrl] = useState("");
 
-  useEffect(() => {
-    getUserImageURL();
-  }, []);
+  const { userProfile } = useContext(UserProfileContext);
 
-  const getUserImageURL = async () => {
-    const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+  // useEffect(() => {
+  //   getUserImageURL();
+  // }, []);
 
-    if (userSnapshot.data()) {
-      const userProfile = userSnapshot.data();
-      setUserImageUrl(userProfile.userImageURL);
-    }
-  };
+  // const getUserImageURL = async () => {
+  //   const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+
+  //   if (userSnapshot.data()) {
+  //     const userProfile = userSnapshot.data();
+  //     setUserImageUrl(userProfile.userImageURL);
+  //   }
+  // };
 
   return (
     <aside className="w-[200px] h-[75vh] shadow-lg rounded-sm lg:flex flex-col gap-[50px] mt-12 bg-white hidden sticky top-[50px]">
       <div className="flex justify-center flex-col items-center gap-1">
         <div className="rounded-full h-[50px] w-[50px] mt-[-30px] shadow-lg flex items-center justify-center overflow-hidden">
-          {userImageUrl ? (
+          {userProfile.userImageURL ? (
             <img
-              src={userImageUrl}
+              src={userProfile.userImageURL}
               alt="user image"
               className="w-full h-full object-cover"
             />

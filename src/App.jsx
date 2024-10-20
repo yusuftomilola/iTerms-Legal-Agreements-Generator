@@ -18,6 +18,7 @@ import SignedInLayout from "./layout/SignedInLayout";
 import Settings from "./pages/Settings";
 import Subscriptions from "./pages/Subscriptions";
 import AuthWrapper from "./components/AuthWrapper";
+import { UserProfileProvider } from "./context/userProfile";
 
 const router = createBrowserRouter([
   {
@@ -92,12 +93,14 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <AuthWrapper>
-      <div className="max-w-[1800px] m-auto">
-        <ToastContainer />
-        <RouterProvider router={router} />
-      </div>
-    </AuthWrapper>
+    <UserProfileProvider>
+      <AuthWrapper>
+        <div className="max-w-[1800px] m-auto">
+          <ToastContainer />
+          <RouterProvider router={router} />
+        </div>
+      </AuthWrapper>
+    </UserProfileProvider>
   );
 }
 
