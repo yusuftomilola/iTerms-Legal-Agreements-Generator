@@ -4,50 +4,65 @@ import { downRightArrowIcon, shortDownArrowIcon } from "../assets/icons";
 import ButtonWithBg from "./buttons/ButtonWithBg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { auth, db } from "../config/firebase";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { getDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const Nav = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [userImageUrl, setUserImageUrl] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigateTo = useNavigate();
 
-  // const { userProfile, setUserProfile } = useContext(UserProfileContext);
-
   useEffect(() => {
-    const getUserProfile = async () => {
-      if (auth.currentUser) {
-        try {
-          const userSnapshot = await getDoc(
-            doc(db, "users", auth.currentUser.uid)
-          );
-
-          const userProfileData = userSnapshot.data();
-          setUserProfile(userProfileData);
-        } catch (error) {
-          console.log("Error fethcing user profile:", error);
-        }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+        getUserProfile(user.uid);
+        getUserImageURL(user.uid);
+      } else {
+        setIsAuthenticated(false);
+        setUserProfile(null);
+        setUserImageUrl("");
       }
-    };
+    });
 
-    const getUserImageURL = async () => {
-      const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+    return () => unsubscribe();
+  }, []);
 
+  const getUserProfile = async (uid) => {
+    try {
+      const userSnapshot = await getDoc(doc(db, "users", uid));
+      const userProfileData = userSnapshot.data();
+      setUserProfile(userProfileData);
+    } catch (error) {
+      console.log("Error fetching user profile:", error);
+    }
+  };
+
+  const getUserImageURL = async (uid) => {
+    try {
+      const userSnapshot = await getDoc(doc(db, "users", uid));
       if (userSnapshot.data()) {
         const userProfile = userSnapshot.data();
         setUserImageUrl(userProfile.userImageURL);
       }
-    };
+    } catch (error) {
+      console.log("Error fetching user image:", error);
+    }
+  };
 
-    getUserProfile();
-    getUserImageURL();
-  }, []);
-
-  const logOut = () => {
-    signOut(auth);
-    window.location.reload();
+  const logOut = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Logged out successfully");
+      navigateTo("/");
+    } catch (error) {
+      console.error("Error signing out:", error);
+      toast.error("Failed to log out. Please try again.");
+    }
   };
 
   const toggleMenu = () => {
@@ -100,11 +115,9 @@ const Nav = () => {
         />
       </div>
 
-      {auth.currentUser && userProfile ? (
+      {isAuthenticated && userProfile ? (
         <div className="hidden lg:flex items-center gap-2">
-          {/* user name */}
           <p className="text-[11px]">Hi, {userProfile.firstName}</p>
-          {/* user image */}
           {userImageUrl && (
             <div className="rounded-full flex items-center justify-center w-[25px] h-[25px] overflow-hidden">
               <img
@@ -114,7 +127,6 @@ const Nav = () => {
               />
             </div>
           )}
-
           <ButtonWithBg text="Log out" bgColor="#8770FF" onClick={logOut} />
         </div>
       ) : (
@@ -174,7 +186,7 @@ const Nav = () => {
               <img src={shortDownArrowIcon} width={20} alt="down arrow" />
             </div>
 
-            {auth.currentUser && (
+            {isAuthenticated && (
               <div className="flex items-center gap-2">
                 <ButtonWithBg
                   text="Log out"

@@ -24,7 +24,6 @@ const Signup = () => {
     firstName: "",
     email: "",
     password: "",
-    firstName: "",
     lastName: "",
   });
 

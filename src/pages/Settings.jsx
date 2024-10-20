@@ -37,6 +37,9 @@ const Settings = () => {
   });
   const navigateTo = useNavigate();
 
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+
   const [userProfile, setUserProfile] = useState({});
 
   // const { userProfile, setUserProfile } = useContext(UserProfileContext);
@@ -44,6 +47,32 @@ const Settings = () => {
   useEffect(() => {
     getUserProfile();
   }, [userProfile.firstName, userProfile.lastName]);
+
+  // change password functionality
+  const handleChangePassword = async () => {
+    if (!newPassword) {
+      toast.error("Please enter a new password");
+      return;
+    }
+
+    setIsChangingPassword(true);
+
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        await updatePassword(user, newPassword);
+        toast.success("Password updated successfully");
+        setNewPassword("");
+      } else {
+        throw new Error("No user is currently signed in");
+      }
+    } catch (error) {
+      console.error("Error updating password:", error);
+      toast.error("Failed to update password. Please try again.");
+    } finally {
+      setIsChangingPassword(false);
+    }
+  };
 
   const handleInputChange = (e) => {
     setFormData((prev) => ({
