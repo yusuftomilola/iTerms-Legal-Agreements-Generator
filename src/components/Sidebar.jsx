@@ -11,30 +11,30 @@ import { useEffect, useState, useContext } from "react";
 import UserProfileContext from "../context/userProfile";
 
 const Sidebar = () => {
-  // const [userImageUrl, setUserImageUrl] = useState("");
+  const [userImageUrl, setUserImageUrl] = useState("");
 
-  const { userProfile } = useContext(UserProfileContext);
+  // const { userProfile } = useContext(UserProfileContext);
 
-  // useEffect(() => {
-  //   getUserImageURL();
-  // }, []);
+  useEffect(() => {
+    getUserImageURL();
+  }, []);
 
-  // const getUserImageURL = async () => {
-  //   const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+  const getUserImageURL = async () => {
+    const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
 
-  //   if (userSnapshot.data()) {
-  //     const userProfile = userSnapshot.data();
-  //     setUserImageUrl(userProfile.userImageURL);
-  //   }
-  // };
+    if (userSnapshot.data()) {
+      const userProfile = userSnapshot.data();
+      setUserImageUrl(userProfile.userImageURL);
+    }
+  };
 
   return (
     <aside className="w-[200px] h-[75vh] shadow-lg rounded-sm lg:flex flex-col gap-[50px] mt-12 bg-white hidden sticky top-[50px]">
       <div className="flex justify-center flex-col items-center gap-1">
         <div className="rounded-full h-[50px] w-[50px] mt-[-30px] shadow-lg flex items-center justify-center overflow-hidden">
-          {userProfile.userImageURL ? (
+          {userImageUrl ? (
             <img
-              src={userProfile.userImageURL}
+              src={userImageUrl}
               alt="user image"
               className="w-full h-full object-cover"
             />

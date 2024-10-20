@@ -9,41 +9,41 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { getDoc, doc } from "firebase/firestore";
 
 const Nav = () => {
-  // const [userProfile, setUserProfile] = useState(null);
-  // const [userImageUrl, setUserImageUrl] = useState("");
+  const [userProfile, setUserProfile] = useState(null);
+  const [userImageUrl, setUserImageUrl] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigateTo = useNavigate();
 
-  const { userProfile, setUserProfile } = useContext(UserProfileContext);
+  // const { userProfile, setUserProfile } = useContext(UserProfileContext);
 
-  // useEffect(() => {
-  //   const getUserProfile = async () => {
-  //     if (auth.currentUser) {
-  //       try {
-  //         const userSnapshot = await getDoc(
-  //           doc(db, "users", auth.currentUser.uid)
-  //         );
+  useEffect(() => {
+    const getUserProfile = async () => {
+      if (auth.currentUser) {
+        try {
+          const userSnapshot = await getDoc(
+            doc(db, "users", auth.currentUser.uid)
+          );
 
-  //         const userProfileData = userSnapshot.data();
-  //         setUserProfile(userProfileData);
-  //       } catch (error) {
-  //         console.log("Error fethcing user profile:", error);
-  //       }
-  //     }
-  //   };
+          const userProfileData = userSnapshot.data();
+          setUserProfile(userProfileData);
+        } catch (error) {
+          console.log("Error fethcing user profile:", error);
+        }
+      }
+    };
 
-  //   const getUserImageURL = async () => {
-  //     const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+    const getUserImageURL = async () => {
+      const userSnapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
 
-  //     if (userSnapshot.data()) {
-  //       const userProfile = userSnapshot.data();
-  //       setUserImageUrl(userProfile.userImageURL);
-  //     }
-  //   };
+      if (userSnapshot.data()) {
+        const userProfile = userSnapshot.data();
+        setUserImageUrl(userProfile.userImageURL);
+      }
+    };
 
-  //   getUserProfile();
-
-  // }, []);
+    getUserProfile();
+    getUserImageURL();
+  }, []);
 
   const logOut = () => {
     signOut(auth);
@@ -105,10 +105,10 @@ const Nav = () => {
           {/* user name */}
           <p className="text-[11px]">Hi, {userProfile.firstName}</p>
           {/* user image */}
-          {userProfile.userImageURL && (
+          {userImageUrl && (
             <div className="rounded-full flex items-center justify-center w-[25px] h-[25px] overflow-hidden">
               <img
-                src={userProfile.userImageURL}
+                src={userImageUrl}
                 alt="user image"
                 className="w-full h-full object-cover"
               />

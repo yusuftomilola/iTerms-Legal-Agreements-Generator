@@ -36,9 +36,9 @@ const Settings = () => {
   });
   const navigateTo = useNavigate();
 
-  // const [userProfile, setUserProfile] = useState({});
+  const [userProfile, setUserProfile] = useState({});
 
-  const { userProfile, setUserProfile } = useContext(UserProfileContext);
+  // const { userProfile, setUserProfile } = useContext(UserProfileContext);
 
   useEffect(() => {
     getUserProfile();
@@ -173,11 +173,6 @@ const Settings = () => {
           const userImageURL = await getDownloadURL(userImageRef);
 
           setFormData((prev) => ({
-            ...prev,
-            userImageUrl: userImageURL,
-          }));
-
-          setUserProfile((prev) => ({
             ...prev,
             userImageUrl: userImageURL,
           }));
