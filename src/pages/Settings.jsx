@@ -33,6 +33,7 @@ const Settings = () => {
     lastName: "",
     email: "",
     userImageUrl: "",
+    password: "",
   });
   const navigateTo = useNavigate();
 
@@ -144,6 +145,14 @@ const Settings = () => {
       }
     } else {
       console.log("No user is signed in");
+    }
+  };
+
+  const handleDeleteButtonClick = () => {
+    if (formData.password) {
+      deleteUserAccount(formData.password);
+    } else {
+      toast.error("Password is required to delete your account.");
     }
   };
 
@@ -431,6 +440,7 @@ const Settings = () => {
                     type="button"
                     disabled={isDeleting}
                     className={`bg-[#FF607C] text-[#fff] px-8 h-[35px] rounded-md cursor-pointer text-[11px]`}
+                    onClick={handleDeleteButtonClick}
                   >
                     {isDeleting ? "Deleting..." : "Delete"}
                   </button>
