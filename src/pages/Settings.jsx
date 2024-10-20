@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { auth, db } from "../config/firebase";
+import { useEffect, useRef, useState } from "react";
+import { auth, db, storage } from "../config/firebase";
 import { deleteUser, updateCurrentUser } from "firebase/auth";
 import {
   updateProfile,
@@ -18,10 +18,12 @@ import P from "../components/P";
 import H2 from "../components/H2";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Settings = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setisDeleting] = useState(false);
+  const fileInputRef = useRef(null);
   const [isDeleteAccountPageVisible, setIsDeleteAccountPageVisible] =
     useState(false);
   const [formData, setFormData] = useState({
@@ -29,6 +31,7 @@ const Settings = () => {
     lastName: "",
     email: "",
     password: "",
+    userImageUrl: "",
   });
   const navigateTo = useNavigate();
 
@@ -60,6 +63,7 @@ const Settings = () => {
           firstName: userProfile.firstName,
           lastName: userProfile.lastName,
           email: userProfile.email,
+          userImageUrl: userProfile.userImageURL,
         });
       } else {
         console.log("User profile does not exist");
@@ -140,6 +144,49 @@ const Settings = () => {
     }
   };
 
+  // function to handle the browse click button
+  const handleBrowseButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  // function to handle file uploading
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      const maxSize = 5 * 1024 * 1024; // 5mb max
+
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Only JPG, JPEG and PNG files are allowed");
+      } else if (file.size > maxSize) {
+        toast.error("File size exceeds 5MB");
+      } else {
+        try {
+          const userImageRef = ref(storage, `images/${file.name}`);
+          await uploadBytes(userImageRef, file);
+
+          const userImageURL = await getDownloadURL(userImageRef);
+
+          setFormData((prev) => ({
+            ...prev,
+            userImageUrl: userImageURL,
+          }));
+
+          await updateDoc(doc(db, "users", auth.currentUser.uid), {
+            userImageURL: userImageURL,
+          });
+
+          toast.success("File uploaded successfully");
+          console.log(userImageURL);
+        } catch (error) {
+          toast.error("Failed to upload file");
+          console.log(error);
+        }
+      }
+    }
+  };
+
   return (
     <main className="flex flex-grow flex-col gap-6  mb-10 pl-4 pr-7 md:pr-4 lg:pr-0 md:pl-0 overflow-x-hidden">
       <div className="bg-white rounded-lg shadow-xl px-4 py-8 flex flex-col  gap-2 items-start w-full">
@@ -150,14 +197,24 @@ const Settings = () => {
 
             {/* SECOND PART */}
             <div className="flex gap-4 items-center">
-              <div className="rounded-full p-5 flex items-center justify-center border-[1px] border-[#32D989]">
-                <img
-                  src={cameraIcon}
-                  alt="camera icon"
-                  width={20}
-                  height={20}
-                />
-              </div>
+              {formData.userImageUrl ? (
+                <div className="rounded-full flex items-center justify-center w-[70px] h-[70px] overflow-hidden">
+                  <img
+                    src={formData.userImageUrl}
+                    alt="user image"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="rounded-full p-5 flex items-center justify-center border-[1px] border-[#32D989]">
+                  <img
+                    src={cameraIcon}
+                    alt="camera icon"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              )}
 
               <div className="flex flex-col gap-4 items-start">
                 <div>
@@ -167,7 +224,20 @@ const Settings = () => {
                   </p>
                 </div>
 
-                <button className="text-[#8770FF] underline text-[13px]">
+                <input
+                  type="file"
+                  name="userImage"
+                  id="userImage"
+                  className="hidden"
+                  accept=".jpg, .jpeg, .png"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                />
+
+                <button
+                  className="text-[#8770FF] underline text-[13px]"
+                  onClick={handleBrowseButtonClick}
+                >
                   Browse
                 </button>
               </div>
